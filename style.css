@@ -1,0 +1,547 @@
+@charset "utf-8";
+
+/* 全体設定：色指定 */
+:root {
+  --darkgreen: #228b22;
+  --lightgreen: #afd899;
+  --lightgreen_80: rgb(175, 216, 153, 0.8);
+  --red: #ba3204;
+  --darkgray: #555555;   /* 使ってない */
+  --gray: #808080;       /* 使ってない */
+  --lightgray: #dcdcdc;  /* 使ってない */
+}
+/* 全体設定：paddingとborderを要素のwidthとheightに含む */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+/* ページ全体設定（余白の初期化と背景色） */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--lightgreen);
+}
+/* ページ設定（ヘッダー以外） */
+#main {
+  margin-left: auto;    /* 左側マージンを自動的に空ける */
+  margin-right: auto;   /* 右側マージンを自動的に空ける */
+  width: 70%;           /* 幅を決定する */
+  font-family: sans-serif;
+}
+/* タイトルヘッダー */
+#header {
+  width: 100%;
+  height: 80px;
+  margin-bottom: 10px;
+}
+.headerflex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0px;
+}
+.title {
+  display: flex;
+  align-items: center;
+}
+.titleicon {
+  width: 80px;
+  height: 80px;
+}
+.titlelogo {
+  width: auto;
+  height: 50px;
+  margin-left: 20px;
+}
+/* ロゴを文字列にした場合こちらを使用
+.titlename {
+  white-space: nowrap;
+  margin-left: 10px;
+  font-size: 40px;
+  font-weight: bolder;
+  color: var(--darkgreen);
+}
+*/
+/* メニューバー */
+.nav_wrap {
+  background-color: var(--lightgreen);
+}
+.nav_lists {
+  display: flex;
+  margin: 0;      /* 指定しないと崩れる */
+  padding: 0;     /* 指定しないと崩れる */
+  list-style: none;
+  border-left: 1px solid var(--darkgreen);
+  border-right: 1px solid var(--darkgreen);
+}
+.nav_list {
+  width: max-content;
+  height: 30px;
+  position: relative;
+  transition: all .3s;
+}
+.nav_list a {
+  display: flex;
+  padding: 0px 20px;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  text-decoration: none;
+  color: var(--darkgreen);
+  font-size: medium;
+  letter-spacing: 0.03em;
+  font-weight: bold;
+  transition: all .3s;
+}
+.nav_list > a:hover {
+  background-color: var(--darkgreen);
+  color: var(--lightgreen);
+  width: max-content;
+}
+.nav_list + .nav_list {
+  border-left: 1px solid var(--darkgreen);
+}
+.current a{
+  color: black;
+}
+.dd_lists {
+  visibility: hidden;     /*デフォルトでは非表示の状態にしておく*/
+  opacity: 0;             /*不透明度0*/
+  transition: all .3s;    /*表示の変化を0.3秒に指定*/
+  position: absolute;
+  list-style: none;
+  display: flex;          /* 子を親に揃えるためにflex化 */
+  flex-direction: column; /* 縦並び */
+  margin: 0;
+  padding: 0;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.nav_list:hover .dd_lists {
+  visibility: visible;    /*ナビメニューにホバーしたら表示*/
+  opacity: 1;             /*不透明度1*/
+}
+/* サブドロップダウンメニュー背景 */
+.dd_list {
+  background-color: var(--lightgreen_80);
+  width: auto;
+  white-space: nowrap;
+  height: 30px;
+  transition: all .3s;
+  position: relative;
+  margin: 0;
+  z-index: 2;
+}
+
+/* サブドロップダウンメニュー区切り線 */
+.dd_list + .dd_list {
+  border-top: 1px solid var(--darkgreen);
+}
+
+/* サブドロップダウンメニュー文字 */
+.dd_list a {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 0px 10px;
+  color: var(--darkgreen);
+  letter-spacing: normal;
+  text-decoration: none;
+  position: relative;
+  justify-content: center;  /* ← 子リスト中央揃え */
+  align-items: center;
+  box-sizing: border-box;
+  transition: color .3s;
+}
+.dd_list:hover {
+  background-color: var(--darkgreen);
+}
+.dd_list:hover a {
+  color: var(--lightgreen);
+}
+
+/* ハンバーガーメニューのスタイル */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 25px;
+  cursor: pointer;
+  margin-left: auto;
+}
+.hamburger span {
+  display: block;
+  height: 4px;
+  width: 25px;
+  background-color: var(--darkgreen);
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+/* レイアウト */
+/* 横並びボックス：左寄せ：白角丸ボックス（HOME＆カテゴリトップ） */
+.flex_left_whitebox {
+  display: flex;
+  padding: 15px;
+  margin-bottom: 15px;
+  background-color: white;
+  border-radius: 10px;
+}
+/* 横並びボックス：両端揃え：背景なし */
+.flex_justify_nobox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+/* 横並びボックス：左寄せ：背景なし */
+.flex_left_nobox {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+/* 横並びボックス：内部メニュー用 */
+.flex_innermenu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/*　個別ページ背景色 */
+.back {
+  background-color: white;
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+/*　個別ページ：画像ギャラリー */
+.flex_gallery {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.flex_gallery img {
+  flex: 1;
+  min-width: 0;
+}
+.space {
+  width: 50px;
+  height: 100%;
+}
+.leftspace {
+  margin-left: 20px;
+}
+.img_right {
+  margin-left: auto; 
+  display: block;
+}
+.text_right {
+  text-align: right;
+  color: black;
+}
+
+/* ボディ内アイコンのサイズ（２種） */
+.icon_L {
+  width: 100px;
+  height: 100px;
+}
+.icon_M {
+  width: 80px;
+  height: 80px;
+}
+.icon_S {
+  width: 60px;
+  height: 60px;
+}
+
+/* 見出し文字 */
+h1 {
+  font-size: x-large;
+  margin: 0px;
+  color: black;
+  width: fit-content;
+}
+h2 {
+  font-size: larger;
+  margin: 0px;
+  color: black;
+  width: fit-content;
+}
+h3 {
+  font-size: large;
+  margin: 0px;
+  color: black;
+  width: fit-content;
+}
+/* 見出し下の説明文・ライン付き */
+h4 {
+  font-size: medium;
+  margin-top: 5px;
+  padding-left: 5px;
+  color: var(--darkgreen);
+  border-top: 2px dotted var(--darkgreen);
+}
+/* h4→h3の間のスペースを縮小（使い方ページのみ） */
+.h4toh3 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+/* 文字列基本設定：リンク */
+a {
+  text-decoration: none;
+  color: var(--darkgreen);
+}
+/* 文字列基本設定：段落 */
+p {
+  margin: 5px 0px;
+  color: black;
+  line-height: 160%;
+  text-align: left;
+}
+/* 文字列基本設定：太文字 */
+b {
+  font-weight: bold;
+}
+
+/* ボディ内リスト:divで適用（全体でリスト設定を消去してるため、改めて指定する） */
+.list li {
+  list-style-type: disc;
+  list-style-position: outside;
+}
+
+/*　フキダシ（HOMEのみで使用） */
+.balloon {
+  display: inline-block;
+  position: relative;
+  margin-left: 10px;
+  margin-bottom: 12px;
+  padding: 5px 20px;
+  background: var(--red);
+  border-radius: 15px;
+  color: white;
+  font-size: medium;
+  font-weight: bold;
+  align-items: center;
+  letter-spacing: 0.03em;
+} 
+.balloon::after {
+  position: absolute;
+  content: '';
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-top: 15px solid var(--red);
+  border-left: 30px solid transparent;
+  border-right: -20px solid transparent;
+  width: 0;
+  height: 0;
+}
+
+/* 内部メニュー：スマホだけ改行・棒線非表示 */
+.br_sp {
+  display: none;
+}
+.bar {
+  display: inline;
+  margin: 0 10px;
+}
+/* ボーダー（内部メニュー下部等） */
+.border {
+  margin: 5px 0px 10px 0px;
+  width: 100%;
+  color: var(--darkgreen);
+  border-top: 2px dotted var(--darkgreen);
+}
+
+/* 画像（幅500px） */
+.img_500 {
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* 画像（幅700px） */
+.img_700 {
+  width: 100%;
+  max-width: 700px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* YouTube動画共通 */
+.youtube {
+  width: 100%;
+  margin: 20px auto;
+}
+
+/* iframeを親サイズに合わせる */
+.youtube iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* 通常動画（16:9） */
+.youtube_wide {
+  max-width: 800px;
+  aspect-ratio: 16 / 9;
+}
+
+/* ショート動画（9:16） */
+.youtube_short {
+  max-width: 330px;
+  aspect-ratio: 9 / 16;
+}
+
+/* スマホ画面対応：767px以下の場合 */
+@media (max-width: 767px) {
+  #main {
+    margin-left: auto;    /* 左側マージンを自動的に空ける */
+    margin-right: auto;   /* 右側マージンを自動的に空ける */
+    width: 90%;           /* 幅を決定する */
+    font-family: sans-serif;
+  }
+  #header {
+    width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }  
+  .titleicon {
+    width: 60px;
+    height: 60px;
+  }  
+  .titlelogo {
+    width: auto;
+    height: 40px;
+    margin-left: 10px;
+  }  
+  .hamburger {
+    display: flex;
+  }
+  /* スライドメニューの設定 */
+  .nav_wrap {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 40%;
+    height: 100%;
+    background-color: white;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+    padding: 20px 10px;
+    overflow-y: auto;
+    z-index: 1000;
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(100%);
+    text-align: center;
+  }
+  .nav_wrap.active {
+    display: block;
+    transform: translateX(0);
+  }
+  /* スライドメニューの設定 */
+  .nav_lists {
+    display: block;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    border-left: 0px solid white;
+    border-right: 0px solid white;
+    align-items: center;
+  }
+  .nav_list {
+    margin: 20px 0px;
+    width: 100%;
+  }
+  .nav_list a {
+    padding: 20px;
+    text-align: center;
+    font-size: larger;
+  }
+  .dd_lists {
+    visibility: hidden;
+  }
+  .dd_list {
+    visibility: hidden;
+    border: 0px solid white;
+  }
+  .dd_list a {
+    visibility: hidden;
+  }
+  /* ホバー時の挙動 */
+  .nav_list a:hover {
+    width: 100%;
+  }
+  /* 罫線は非表示 */
+  .nav_list + .nav_list {
+    border: 0px solid white;
+  }
+  /* サブメニュー区切り線無し */
+  .dd_list + .dd_list {
+    border: 0px solid white;
+  }
+
+  .flex_left_whitebox {
+    flex-direction: column; /* 子要素を縦並びにする */
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 10px;
+  }  
+  .flex_justify_nobox {
+    flex-direction: column; /* 子要素を縦並びにする */
+    align-items: center;
+    text-align: center;
+  }
+  .flex_left_nobox {
+    flex-direction: column; /* 子要素を縦並びにする */
+    align-items: center;
+    text-align: center;
+  }
+  /* 横並びボックス：内部メニュー用 */
+  .flex_innermenu {
+    flex-direction: column; /* 子要素を縦並びにする */
+    justify-content: center;
+    align-items: center;
+    line-height: 0.8;
+  }
+  /* 横並びボックス：画像並べ用 */
+  .flex_gallery {
+    flex-direction: column; /* 子要素を縦並びにする */
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+
+  h1, h2, h3 {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .leftspace {
+    margin-left: 0px;
+  }
+  .space { /* 縦並び子要素間：ラインと隙間 */
+    margin: 10px 0px;
+  }
+  /* 内部メニュー：スマホだけ改行・棒線非表示 */
+  .br_sp {
+    display: block;
+  }
+  .bar {
+    display: none;
+  }
+  /* ボーダー（内部メニュー下部等） */
+  .border {
+    margin: 10px 0px 10px 0px;
+    width: 100%;
+    color: var(--darkgreen);
+    border-top: 2px dotted var(--darkgreen);
+  }
+}
+
+
