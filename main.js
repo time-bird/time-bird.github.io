@@ -1,85 +1,115 @@
-// GitHub Pagesの組織サイトルートを基準にheader.htmlのパスを計算
 const basePath = "/";
-const headerPath = basePath + "header.html";
+const headerPath = `${basePath}header.html`;
 
-// DOM読み込み完了後に動作
+const navigationMenus = {
+  ja: `
+    <ul class="nav_lists">
+      <li class="nav_list"><a href="/index.html">HOME</a></li>
+      <li class="nav_list">
+        <a href="/apps/00_apps.html">APPS</a>
+        <ul class="dd_lists">
+          <li class="dd_list"><a href="/apps/01_mpb01.html">My電話帳</a></li>
+          <li class="dd_list"><a href="/apps/02_el01.html">Edit Log</a></li>
+        </ul>
+      </li>
+      <li class="nav_list"><a href="/about/00_about.html">ABOUT</a></li>
+    </ul>`,
+  en: `
+    <ul class="nav_lists">
+      <li class="nav_list"><a href="/index.html">HOME</a></li>
+      <li class="nav_list">
+        <a href="/@en/apps/e00_apps.html">APPS</a>
+        <ul class="dd_lists">
+          <li class="dd_list"><a href="/@en/apps/e02_el01.html">Edit Log</a></li>
+          <li class="dd_list"><a href="/@en/apps/e03_goli03.html">GoL∞ Terms</a></li>
+          <li class="dd_list"><a href="/@en/apps/e03_goli04.html">GoL∞ Privacy</a></li>
+        </ul>
+      </li>
+      <li class="nav_list"><a href="/about/00_about.html">ABOUT</a></li>
+    </ul>`
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   const includeHeader = new XMLHttpRequest();
   includeHeader.open("GET", headerPath, true);
   includeHeader.onreadystatechange = function () {
-    if (includeHeader.readyState === 4) {
-      if (includeHeader.status === 200) {
-        const headerHTML = includeHeader.responseText;
-        const header = document.querySelector("#header");
-        if (header) {
-          header.insertAdjacentHTML("afterbegin", headerHTML);
-          console.log("Header loaded successfully:", headerPath);
-
-          // 動的にリンクパスを補正
-          const links = header.querySelectorAll("a, img");
-          links.forEach(link => {
-            const originalPath = link.getAttribute("href") || link.getAttribute("src");
-            if (originalPath && !originalPath.startsWith("http") && !originalPath.startsWith("#")) {
-              const adjustedPath = basePath + originalPath.replace(/^\//, "");
-              if (link.tagName === "A") {
-                link.setAttribute("href", adjustedPath);
-              } else if (link.tagName === "IMG") {
-                link.setAttribute("src", adjustedPath);
-              }
-            }
-          });
-
-          // すべての `current` クラスを削除
-          const allNavItems = header.querySelectorAll(".nav_list");
-          allNavItems.forEach(item => {
-            item.classList.remove("current");
-          });
-
-          // 現在のページに応じて`current`クラスを設定
-          const currentFullPath = window.location.pathname;
-          const navLinks = header.querySelectorAll(".nav_list > a");
-
-          navLinks.forEach(link => {
-            const linkFullPath = new URL(link.getAttribute("href"), window.location.origin).pathname;
-
-            if ((currentFullPath === "/" || currentFullPath.endsWith("index.html")) && linkFullPath.endsWith("index.html")) {
-              link.parentElement.classList.add("current");
-            } else if (currentFullPath === linkFullPath) {
-              link.parentElement.classList.add("current");
-            } else {
-              const subLinks = link.parentElement.querySelectorAll(".dd_list a");
-              subLinks.forEach(subLink => {
-                const subLinkFullPath = new URL(subLink.getAttribute("href"), window.location.origin).pathname;
-                if (currentFullPath === subLinkFullPath) {
-                  link.parentElement.classList.add("current");
-                }
-              });
-            }
-          });
-
-          // ハンバーガーメニューの動作を追加
-          const hamburger = header.querySelector("#hamburger_menu");
-          const nav = header.querySelector("#mobile_nav");
-
-          if (hamburger && nav) {
-            hamburger.addEventListener("click", function () {
-              nav.classList.toggle("active");
-            });
-          
-            // 画面外をクリックするとメニューを閉じる
-            document.addEventListener("click", function (event) {
-              if (!nav.contains(event.target) && !hamburger.contains(event.target)) {
-                nav.classList.remove("active");
-              }
-            });         
-          }
-        } else {
-          console.error("#header element not found in DOM.");
-        }
-      } else {
-        console.error(`Failed to load header.html: ${headerPath} (status: ${includeHeader.status})`);
-      }
+    if (includeHeader.readyState !== 4) return;
+    if (includeHeader.status !== 200) {
+      console.error(`Failed to load header.html: ${headerPath} (status: ${includeHeader.status})`);
+      return;
     }
+
+    const header = document.querySelector("#header");
+    if (!header) {
+      console.error("#header element not found in DOM.");
+      return;
+    }
+
+    header.insertAdjacentHTML("afterbegin", includeHeader.responseText);
+
+    header.querySelectorAll("a, img").forEach(element => {
+      const attribute = element.tagName === "A" ? "href" : "src";
+      const originalPath = element.getAttribute(attribute);
+      if (originalPath && !originalPath.startsWith("http") && !originalPath.startsWith("#")) {
+        element.setAttribute(attribute, basePath + originalPath.replace(/^\//, ""));
+      }
+    });
+
+    const nav = header.querySelector("#mobile_nav");
+    const languageSwitch = header.querySelector("#language_switch");
+    const hamburger = header.querySelector("#hamburger_menu");
+    const pageLanguage = window.location.pathname.startsWith("/@en/") ? "en" : "ja";
+    let navigationLanguage = sessionStorage.getItem("timeBirdNavigationLanguage") || pageLanguage;
+
+    const markCurrentPage = () => {
+      const currentPath = window.location.pathname;
+      nav.querySelectorAll(".nav_list").forEach(item => item.classList.remove("current"));
+      nav.querySelectorAll(".nav_list > a").forEach(link => {
+        const linkPath = new URL(link.href, window.location.origin).pathname;
+        const isHome = (currentPath === "/" || currentPath.endsWith("/index.html")) && linkPath.endsWith("/index.html");
+        const isCurrent = currentPath === linkPath;
+        const hasCurrentChild = [...link.parentElement.querySelectorAll(".dd_list a")]
+          .some(child => new URL(child.href, window.location.origin).pathname === currentPath);
+        if (isHome || isCurrent || hasCurrentChild) link.parentElement.classList.add("current");
+      });
+    };
+
+    const renderNavigation = language => {
+      navigationLanguage = language;
+      nav.innerHTML = navigationMenus[language];
+      nav.setAttribute("lang", language);
+      languageSwitch.textContent = language === "ja" ? "EN" : "JA";
+      languageSwitch.setAttribute("aria-label", language === "ja"
+        ? "Switch navigation to English"
+        : "ナビゲーションを日本語に切り替える");
+      sessionStorage.setItem("timeBirdNavigationLanguage", language);
+      markCurrentPage();
+    };
+
+    languageSwitch.addEventListener("click", event => {
+      event.preventDefault();
+      renderNavigation(navigationLanguage === "ja" ? "en" : "ja");
+    });
+
+    const toggleMobileMenu = () => {
+      const isOpen = nav.classList.toggle("active");
+      hamburger.setAttribute("aria-expanded", String(isOpen));
+    };
+    hamburger.addEventListener("click", toggleMobileMenu);
+    hamburger.addEventListener("keydown", event => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        toggleMobileMenu();
+      }
+    });
+    document.addEventListener("click", event => {
+      if (!nav.contains(event.target) && !hamburger.contains(event.target)) {
+        nav.classList.remove("active");
+        hamburger.setAttribute("aria-expanded", "false");
+      }
+    });
+
+    renderNavigation(navigationLanguage);
   };
   includeHeader.send();
 });

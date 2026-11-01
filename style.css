@@ -54,6 +54,24 @@ body {
   height: 50px;
   margin-left: 20px;
 }
+.header_actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.language_switch {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  font-size: small;
+  font-weight: bold;
+  line-height: 30px;
+}
+.language_switch:hover,
+.language_switch:focus-visible {
+  color: black;
+}
 /* ロゴを文字列にした場合こちらを使用
 .titlename {
   white-space: nowrap;
@@ -422,6 +440,10 @@ b {
   }  
   .hamburger {
     display: flex;
+  }
+  .header_actions {
+    margin-left: auto;
+    gap: 12px;
   }
   /* スライドメニューの設定 */
   .nav_wrap {

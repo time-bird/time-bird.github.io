@@ -1,30 +1,17 @@
 <div class="headerflex">
   <div class="title">
-	<img src="./images/tb_icon.png" class="titleicon">
-	<img src="./images/timebird_logo.png" class="titlelogo">
+	<img src="./images/tb_icon.png" class="titleicon" alt="">
+	<img src="./images/timebird_logo.png" class="titlelogo" alt="Time Bird">
   </div>
-  <!-- スマホ用ハンバーガーメニュー三本線 -->
-	<div class="hamburger" id="hamburger_menu">
-		<span></span>
-		<span></span>
-		<span></span>
-	</div>
-  <!-- PC用通常メニュー -->
-  <div class="nav_wrap" id="mobile_nav">
-    <ul class="nav_lists">
-      <li class="nav_list current">
-        <a href="./index.html">HOME</a>
-      </li>
-      <li class="nav_list">
-      <a href="./apps/00_apps.html">APPS</a>
-      <ul class="dd_lists">
-        <li class="dd_list"><a href="./apps/01_mpb01.html">My電話帳</a></li>
-        <li class="dd_list"><a href="./apps/02_el01.html">Edit Log</a></li>
-      </ul>
-      </li>
-      <li class="nav_list">
-        <a href="./about/00_about.html">ABOUT</a>
-      </li>
-    </ul>
+  <div class="header_actions">
+    <a href="#" class="language_switch" id="language_switch" aria-label="Switch navigation to English">EN</a>
+    <!-- スマホ用ハンバーガーメニュー三本線 -->
+    <div class="hamburger" id="hamburger_menu" role="button" tabindex="0" aria-label="メニューを開く" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <!-- PC用通常メニュー。内容はmain.jsで日本語版・英語版を切り替える -->
+    <nav class="nav_wrap" id="mobile_nav" aria-label="Main navigation"></nav>
   </div>
 </div>
