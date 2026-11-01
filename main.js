@@ -10,22 +10,22 @@ const navigationMenus = {
         <ul class="dd_lists">
           <li class="dd_list"><a href="/apps/01_mpb01.html">My電話帳</a></li>
           <li class="dd_list"><a href="/apps/02_el01.html">Edit Log</a></li>
+          <li class="dd_list"><a href="/apps/03_goli01.html">GoL Infinity</a></li>
         </ul>
       </li>
       <li class="nav_list"><a href="/about/00_about.html">ABOUT</a></li>
     </ul>`,
   en: `
     <ul class="nav_lists">
-      <li class="nav_list"><a href="/index.html">HOME</a></li>
+      <li class="nav_list"><a href="/@en/e_index.html">HOME</a></li>
       <li class="nav_list">
         <a href="/@en/apps/e00_apps.html">APPS</a>
         <ul class="dd_lists">
           <li class="dd_list"><a href="/@en/apps/e02_el01.html">Edit Log</a></li>
-          <li class="dd_list"><a href="/@en/apps/e03_goli03.html">GoL∞ Terms</a></li>
-          <li class="dd_list"><a href="/@en/apps/e03_goli04.html">GoL∞ Privacy</a></li>
+          <li class="dd_list"><a href="/@en/apps/e03_goli01.html">GoL Infinity</a></li>
         </ul>
       </li>
-      <li class="nav_list"><a href="/about/00_about.html">ABOUT</a></li>
+      <li class="nav_list"><a href="/@en/about/e00_about.html">ABOUT</a></li>
     </ul>`
 };
 
@@ -88,7 +88,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     languageSwitch.addEventListener("click", event => {
       event.preventDefault();
-      renderNavigation(navigationLanguage === "ja" ? "en" : "ja");
+      const nextLanguage = navigationLanguage === "ja" ? "en" : "ja";
+      sessionStorage.setItem("timeBirdNavigationLanguage", nextLanguage);
+      window.location.href = nextLanguage === "en"
+        ? "/@en/e_index.html"
+        : "/index.html";
     });
 
     const toggleMobileMenu = () => {
