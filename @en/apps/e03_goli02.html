@@ -16,7 +16,7 @@
   <div class="back">
   <div class="flex_justify_nobox">
     <div class="flex_left_nobox">
-      <img src="../../images/i_apps/ap_0301.png" class="icon_M">
+      <img src="../../images/i_apps/ap_0301.png" class="icon_M" alt="GoL∞ (Infinity) icon">
       <h1>GoL∞ (Infinity)</h1>
     </div>
     <a href="https://play.google.com/store/apps/details?id=jp.timebird.golinfinity" target="_blank" rel="noopener">
@@ -37,41 +37,44 @@
   </div>
   <div class="border"></div>
 
-  <h2>How to Use GoL∞ (Infinity)</h2><br>
-  <h3>Getting Started</h3>
+  <h2>How to Use</h2><br>
+  <h3>Basic Use</h3>
   <p>
-    GoL∞ (Infinity) lets you observe Conway's Game of Life on an infinite logical grid. When the app opens, it displays a randomly generated field of live cells. Tap Start at the bottom of the screen to advance the simulation. At the configured generation interval, eligible groups of cells may be replicated and the field can continue expanding.<br>
-    In Normal View, drag the screen to move around the field. Open the scale controls to zoom in, zoom out, or reset the zoom and position.<br>
+    GoL∞ (Infinity) lets you observe Conway's Game of Life on an infinite logical grid. When the app opens, it displays randomly generated live cells. Tap the Start button at the bottom of the screen to advance through the generations. At set generation intervals, groups of cells that meet the specified conditions are replicated, allowing the field to expand.<br>
+
+    In Normal View, drag the screen to move the viewing area. Use the scale controls to zoom in or out, or to reset the viewing position and scale.<br>
   </p><br>
 
-  <img src="../../images/i_apps/ap_0302.png" class="img_500" alt="GoL∞ (Infinity) Normal View and the bottom control buttons">
-
   <h4 class="h4toh3">Bottom Control Buttons</h4>
+  <img src="../../images/i_apps/ap_0305.png" class="img_500" alt="GoL∞ (Infinity) bottom control buttons">
+  <br>
   <h3>1. Start / Stop</h3>
   <p>Starts or pauses the simulation. The button shows a play symbol while stopped and a stop symbol while running. Pausing keeps the current field and generation intact.<br></p><br>
 
   <h3>2. Restart</h3>
-  <p>Discards the current field and creates a new one using Initial Field Size and Initial Live Cell Probability. The generation, replicas created, elapsed time, viewport position, and zoom are reset, and the new simulation starts.<br></p><br>
+  <p>Discards the current field and creates a new one using Initial Field Size and Initial Live Cell Probability. The generation, total replications, total time, viewing position, and scale are reset, and the new simulation starts.<br></p><br>
 
-  <h3>3. Scale Controls</h3>
-  <p>Shows or hides three scale buttons: reset zoom and position, zoom out, and zoom in. These controls only change how the field is displayed; they do not alter cells or simulation progress.<br></p><br>
+  <h3>3. Display Scale</h3>
+  <p>Shows or hides three scale buttons. These buttons reset the viewing position and scale, zoom out, and zoom in. They only change how the field appears and do not affect cell states or simulation progress.<br></p><br>
+  <img src="../../images/i_apps/ap_0306.png" class="img_500" alt="GoL∞ (Infinity) display scale controls">
+  <br>
 
   <h3>4. View Mode</h3>
-  <p>Switches between Normal View and Transformed View. Normal View shows the cells on a flat field and lets you drag to move the observation area. Transformed View renders the field in a different form so that its expansion can be observed from another perspective. Switching views does not change the cells or generation.<br></p><br>
+  <p>Switches between Normal View and Transformed View.<br>
+  Normal View displays cells on a flat plane and lets you drag the screen to move the viewing area. Transformed View preserves each cell's direction from the center while compressing its distance from the center more strongly the farther away it is. This lets you see the overall distribution and growth of cells that would extend beyond the screen in Normal View.<br>
+  Switching view modes does not change cell states or the current generation.<br></p><br>
 
   <h3>5. Information</h3>
-  <p>Shows or hides Generation, Field Size, Replicas Created, and Elapsed Time. The information-display preference is saved for the next launch.<br></p><br>
-
-  <img src="../../images/i_apps/ap_0303.png" class="img_500" alt="GoL∞ (Infinity) Transformed View with simulation information">
+  <p>Shows or hides the information panel. It displays Generation, Field Size, Total Replications, and Total Time. Whether the panel is shown is saved and restored the next time the app starts.<br></p><br>
+  <img src="../../images/i_apps/ap_0307.png" class="img_500" alt="GoL∞ (Infinity) information panel">
+  <br>
 
   <h3>6. Settings</h3>
   <p>Opens the Settings screen. You can choose the language, configure the initial field and replication behavior, manage available privacy options, and remove advertisements. Tap Close to save the entered values and return to the simulation. Tap the question-mark button beside an item to read its explanation.<br></p><br>
 
-  <img src="../../images/i_apps/ap_0304.png" class="img_500" alt="GoL∞ (Infinity) Settings screen in English">
-
   <h4 class="h4toh3">Settings Screen</h4>
   <h3>About GoL∞ (Infinity)</h3>
-  <p>Tap the question mark to view an explanation of the GoL∞ (Infinity) simulation and its additional replication behavior.<br></p><br>
+  <p>Tap the question mark to view an explanation of the GoL∞ (Infinity) simulation and its unique replication feature.<br></p><br>
 
   <h3>Language</h3>
   <p>Selects the language used on the Settings screen and in the information display. The change is applied immediately and retained for the next launch.<br></p><br>
@@ -100,14 +103,14 @@
   <h3>Base Replication Distance (10–1000; default 80)</h3>
   <p>Sets the base range used when looking for a destination for a copy. It is measured in logical cells, not screen pixels. The actual displacement may be shorter when an available empty area is preferred.<br></p><br>
 
-  <h3>Replicas per Distance Step (1–1000; default 20)</h3>
+  <h3>Distance Growth Interval (Replications) (1–1000; default 20)</h3>
   <p>Sets the cumulative number of successful replicas required before the search distance increases by one step. Failed placement attempts do not count. A smaller value expands the search range sooner.<br></p><br>
 
   <h3>Replication Distance Growth Factor (1–5; default 1.35)</h3>
   <p>Sets the multiplier applied to the base distance at each distance-growth step. A value of 1 prevents growth; values greater than 1 expand the search range progressively. This does not change Conway's rules or the cells' natural movement.<br></p><br>
 
-  <h3>Maximum Replicas per Replication Cycle (1–50; default 4)</h3>
-  <p>Limits the number of replica groups successfully created during one scheduled replication check. Failed attempts do not use this limit. Population and added-cell safety limits may result in fewer copies than the selected value.<br></p><br>
+  <h3>Maximum Replications per Replication Cycle (1–50; default 4)</h3>
+  <p>Limits the number of cell groups successfully created during one replication check. Failed placement attempts do not count toward this limit. Safety limits, such as the total live-cell limit, may result in fewer copies than the selected value.<br></p><br>
 
   <h3>When Settings Take Effect</h3>
   <p>The entered values are saved when you tap Close. Initial Field Size and Initial Live Cell Probability take effect on the next restart. Replication settings take effect from the next replication check. Out-of-range values, or a minimum candidate size greater than the maximum, are not accepted.<br></p><br>

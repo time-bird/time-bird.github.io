@@ -260,6 +260,43 @@ body {
   color: black;
 }
 
+/* 画像上のテキスト：必要な画像だけに適用する */
+.image_overlay {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* 画像サイズは親要素に合わせ、縦横比を維持する */
+.image_overlay > img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* ギャラリー内の画像と文字のコンテナ */
+.flex_gallery > .image_overlay {
+  flex: 1;
+  min-width: 0;
+}
+
+/* 画像内の文字：標準は中央配置 */
+.image_overlay_text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 90%;
+  color: black;
+  font-size: clamp(12px, 2vw, 24px);
+  font-weight: bold;
+  line-height: 1.3;
+  text-align: center;
+  overflow-wrap: break-word;
+  -webkit-text-stroke: 2px white;
+  paint-order: stroke fill;
+}
+
 /* ボディ内アイコンのサイズ（２種） */
 .icon_L {
   width: 100px;

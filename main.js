@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
       navigationLanguage = language;
       nav.innerHTML = navigationMenus[language];
       nav.setAttribute("lang", language);
-      languageSwitch.textContent = language === "ja" ? "EN" : "JA";
+      languageSwitch.textContent = language === "ja" ? "English" : "Japanese";
       languageSwitch.setAttribute("aria-label", language === "ja"
         ? "Switch navigation to English"
         : "ナビゲーションを日本語に切り替える");
