@@ -268,6 +268,7 @@ body {
 .icon_M {
   width: 80px;
   height: 80px;
+  margin-right: 6px;
 }
 .icon_S {
   width: 60px;
@@ -321,6 +322,10 @@ p {
 /* 文字列基本設定：太文字 */
 b {
   font-weight: bold;
+}
+
+.small-text {
+  font-size: small;
 }
 
 /* ボディ内リスト:divで適用（全体でリスト設定を消去してるため、改めて指定する） */
