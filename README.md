@@ -19,6 +19,6 @@ https://time-bird.github.io/index.html
 
 ### 2026-11-03
 - サイトのリポジトリを time-bird.github.io に移動しました。
-- アンドロイドアプリ『GoL∞ (Infinity)』のページを追加しました。
+- アンドロイドアプリ『GoL∞ (GoL Infinity)』のページを追加しました。
 - 英語版のページを追加しました。
 - ABOUTの内容を整理しました。

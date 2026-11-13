@@ -9,7 +9,7 @@ const navigationMenus = {
         <a href="/apps/00_apps.html">APPS</a>
         <ul class="dd_lists">
           <li class="dd_list"><a href="/apps/01_mpb01.html">My電話帳</a></li>
-          <li class="dd_list"><a href="/apps/03_goli01.html">GoL∞ (Infinity)</a></li>
+          <li class="dd_list"><a href="/apps/03_goli01.html">GoL∞ (GoL Infinity)</a></li>
           <li class="dd_list"><a href="/apps/02_el01.html">Edit Log</a></li>
         </ul>
       </li>
@@ -21,7 +21,7 @@ const navigationMenus = {
       <li class="nav_list">
         <a href="/@en/apps/e00_apps.html">APPS</a>
         <ul class="dd_lists">
-          <li class="dd_list"><a href="/@en/apps/e03_goli01.html">GoL∞ (Infinity)</a></li>
+          <li class="dd_list"><a href="/@en/apps/e03_goli01.html">GoL∞ (GoL Infinity)</a></li>
           <li class="dd_list"><a href="/@en/apps/e02_el01.html">Edit Log</a></li>
         </ul>
       </li>
